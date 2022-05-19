@@ -35,17 +35,17 @@ class App extends React.Component {
 
     this.input.current.value = null;
 
-    let uuid;
+    let id;
     if (this.state.todos.length === 0) {
-      uuid = 0;
+      id = 0;
     } else {
-      uuid = this.state.todos[this.state.todos.length - 1].id + 1;
+      id = this.state.todos[this.state.todos.length - 1].id + 1;
     }
     this.setState({
       todos: [
         ...this.state.todos,
         {
-          id: uuid,
+          id: id,
           name: todoName,
           complete: false,
         },
