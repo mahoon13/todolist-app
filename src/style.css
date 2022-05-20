@@ -1,17 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 24px;
+    font-family: "Roboto Mono";
 }
 
-body {
+:root {
+    --light-gray: #F5F5F5;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+#root {
+    padding: 1rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    align-items: stretch;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
-label {
+.todo {
+    padding: 2rem;
+    background-color: var(--light-gray);
+    width: fit-content;
+    border-radius: 12px;
+    box-shadow: 2px 2px 18px hsla(0, 0%, 0%, 0.2);
     cursor: pointer;
+    transition: 0.3s linear;
+}
+
+.todo.completed {
+    background-color: lightgreen;
+}
+
+.todo.completed::after {
+    content: "completed";
+    position: absolute;
+    font-size: 14px;
+    transform: translate(-45px, -40px);
+}
+
+
+.add__todo {
+    background: var(--light-gray);
+    border-radius: 12px;
+    width: 200px;
+    cursor: pointer;
+    box-shadow: 2px 2px 18px hsla(0, 0%, 0%, 0.2);
+    transition: 0.3s;
+    min-height: 125px;
+}
+
+.add__todo:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.add__todo:hover::after {
+    background-color: white;
+    box-shadow: 0px 0px 20px #fff;
+}
+
+.add__todo:hover::before {
+    background-color: white;
+    box-shadow: 0px 0px 20px #fff;
+}
+
+.add__todo::before {
+    content: "";
+    position: absolute;
+    width: 1.5rem;
+    height: 5px;
+    background-color: black;
+    transform: translate(calc(100px - 0.75rem), 60px);
+    border-radius: 2rem;
+}
+
+.add__todo::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 1.5rem;
+    background-color: black;
+    transform: translate(calc(100px - 2.5px), calc(60px - 0.75rem + 2.5px));
+    border-radius: 2rem;
 }
