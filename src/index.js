@@ -8,7 +8,6 @@ class App extends React.Component {
     this.state = {
       todos: JSON.parse(localStorage.getItem("todolist")) || [],
     };
-    this.input = React.createRef();
     this.handleAddTodo = this.addTodo.bind(this);
     this.handleRemoveCompleteTodos = this.handleRemoveCompleteTodos.bind(this);
   }
@@ -30,10 +29,8 @@ class App extends React.Component {
   }
 
   addTodo(todo) {
-    let todoName = this.input.current.value;
-    if (todoName === "") return;
-
-    this.input.current.value = null;
+    let todoName = prompt("write todo:", "");
+    if (todoName === "" || todoName === null) return;
 
     let id;
     if (this.state.todos.length === 0) {
@@ -59,12 +56,7 @@ class App extends React.Component {
     return (
       <>
         <TodoList todolist={this.state.todos} />
-        <input ref={this.input} type="text"></input>
-        <button onClick={this.handleAddTodo}>add TODO</button>
-        <button onClick={this.handleRemoveCompleteTodos}>
-          clear complete TODOs
-        </button>
-        <div>{todosLeft.length} TODO Left</div>
+        <div className="add__todo" onClick={this.handleAddTodo}></div>
       </>
     );
   }
@@ -90,8 +82,8 @@ class Todo extends React.Component {
 
   handleCheckBox() {
     let todos = JSON.parse(localStorage.getItem("todolist"));
-    todos[this.findTodoIndex(this.props.todo)].complete =
-      !todos[this.findTodoIndex(this.props.todo)].complete;
+    let todoIndex = this.findTodoIndex(this.props.todo);
+    todos[todoIndex].complete = !todos[todoIndex].complete;
 
     localStorage.setItem("todolist", JSON.stringify(todos));
     window.dispatchEvent(new Event("completetodo"));
@@ -109,17 +101,22 @@ class Todo extends React.Component {
   }
 
   render() {
+    let className = "todo";
+
+    const isCompleted = this.props.todo.complete;
+    if (isCompleted) {
+      className += " completed";
+    }
+
     return (
-      <div className="todo">
-        <label>
-          <input
-            type="checkbox"
-            defaultChecked={this.props.todo.complete}
-            onClick={this.handleCheckBox}
-          ></input>
-          {this.props.todo.name}
-        </label>
-      </div>
+      <label className={className}>
+        <input
+          type="checkbox"
+          defaultChecked={this.props.todo.complete}
+          onClick={this.handleCheckBox}
+        ></input>
+        {this.props.todo.name}
+      </label>
     );
   }
 }
